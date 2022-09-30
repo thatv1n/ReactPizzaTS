@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useAppDispatch } from '../../redux/hook';
-import { setSort } from '../../redux/SlicesNThunk/Pizzass/Slice';
+import { setSort } from '../../redux/SlicesNThunk/Pizzass/PizzaSlice';
 
 type itemSortType = {
   id: number;

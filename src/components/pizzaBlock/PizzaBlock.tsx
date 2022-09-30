@@ -1,4 +1,5 @@
 import React from 'react';
+
 type PropsType = {
   id: number;
   imageUrl: string;
@@ -11,12 +12,18 @@ type PropsType = {
 };
 
 const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, price }) => {
-  // const viewTypes = [
-  //   { id: 0, name: 'тонкое' },
-  //   { id: 1, name: 'традиционное' },
-  // ];
+  const viewTypes = ['тонкое', 'традиционное'];
 
-  // const [activeType, setActiveType] = React.useState();
+  const [activeType, setAcitveType] = React.useState(0);
+  const [activeSize, setAcitveSize] = React.useState(0);
+
+  // const addToCart = () => {
+  //   const obj = {
+  //     id,
+  //     imageUrl,
+  //     name,
+  //   };
+  // };
 
   return (
     <div className="pizza-block">
@@ -24,21 +31,24 @@ const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, pri
       <h4 className="pizza-block__title">{name}</h4>
       <div className="pizza-block__selector">
         <ul>
-          {/* {viewTypes.map((item) => (
-            <li key={item.id} className="active">
-              тонкое
+          {types.map((item, i) => (
+            <li
+              key={i}
+              className={activeType === i ? 'active' : undefined}
+              onClick={() => setAcitveType(item)}>
+              {viewTypes[item]}
             </li>
-          ))} */}
-          <li className="active">тонкое</li>
-          <li>традиционное</li>
+          ))}
         </ul>
         <ul>
           {sizes.map((item, i) => (
-            <li key={i}>{item} см.</li>
+            <li
+              key={i}
+              className={activeSize === i ? 'active' : undefined}
+              onClick={() => setAcitveSize(i)}>
+              {item} см.
+            </li>
           ))}
-          {/* <li className="active">26 см.</li>
-          <li>30 см.</li>
-          <li>40 см.</li> */}
         </ul>
       </div>
       <div className="pizza-block__bottom">

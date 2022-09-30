@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { fetchPizzas } from './Thunk';
+import { fetchPizzas } from './PizzaThunk';
 
 type pizzaItem = {
   id: number;
@@ -26,7 +26,6 @@ const initialState: fetchPizzassState = {
   error: null,
   category: null,
   sort: null,
-
 };
 
 const fetchPizzassSlice = createSlice({

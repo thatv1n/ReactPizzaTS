@@ -6,7 +6,7 @@ import PizzaBlock from '../components/pizzaBlock/PizzaBlock';
 import { Menu } from '../components/menu/Menu';
 import { Sort } from '../components/sort/Sort';
 import { useAppDispatch, useAppSelector } from '../redux/hook';
-import { fetchPizzas } from '../redux/SlicesNThunk/Pizzass/Thunk';
+import { fetchPizzas } from '../redux/SlicesNThunk/Pizzass/PizzaThunk';
 
 type objType = {
   category: number | null;

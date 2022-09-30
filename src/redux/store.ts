@@ -1,8 +1,8 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
-import Slice from './SlicesNThunk/Pizzass/Slice';
+import PizzaSlice from './SlicesNThunk/Pizzass/PizzaSlice';
 
 const store = combineReducers({
-  fetchPizzassSlice: Slice,
+  fetchPizzassSlice: PizzaSlice,
 });
 
 const data = configureStore({

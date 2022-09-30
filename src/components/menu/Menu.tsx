@@ -1,7 +1,7 @@
 import React from 'react';
 
 import { useAppDispatch } from '../../redux/hook';
-import { setCategory } from '../../redux/SlicesNThunk/Pizzass/Slice';
+import { setCategory } from '../../redux/SlicesNThunk/Pizzass/PizzaSlice';
 
 interface MenuType {
   id: number;
