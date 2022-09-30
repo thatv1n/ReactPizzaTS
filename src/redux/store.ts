@@ -1,8 +1,10 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import CartSlice from './SlicesNThunk/Pizzass/CartSlice';
 import PizzaSlice from './SlicesNThunk/Pizzass/PizzaSlice';
 
 const store = combineReducers({
   fetchPizzassSlice: PizzaSlice,
+  CartSlice
 });
 
 const data = configureStore({

@@ -1,4 +1,6 @@
 import React from 'react';
+import { useAppDispatch } from '../../redux/hook';
+import { addCart } from '../../redux/SlicesNThunk/Pizzass/CartSlice';
 
 type PropsType = {
   id: number;
@@ -11,19 +13,34 @@ type PropsType = {
   raiting: number;
 };
 
+type ObjType = {
+  id: number;
+  imageUrl: string;
+  name: string;
+  type: number;
+  size: number;
+  price: number;
+};
+
 const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, price }) => {
+  const dispatch = useAppDispatch();
+
   const viewTypes = ['тонкое', 'традиционное'];
 
   const [activeType, setAcitveType] = React.useState(0);
   const [activeSize, setAcitveSize] = React.useState(0);
 
-  // const addToCart = () => {
-  //   const obj = {
-  //     id,
-  //     imageUrl,
-  //     name,
-  //   };
-  // };
+  const addToCart = () => {
+    const obj: ObjType = {
+      id,
+      imageUrl,
+      name,
+      type: activeType,
+      size: activeSize,
+      price,
+    };
+    dispatch(addCart(obj));
+  };
 
   return (
     <div className="pizza-block">
@@ -53,7 +70,7 @@ const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, pri
       </div>
       <div className="pizza-block__bottom">
         <div className="pizza-block__price">от {price} ₽</div>
-        <div className="button button--outline button--add">
+        <div className="button button--outline button--add" onClick={addToCart}>
           <svg
             width="12"
             height="12"
