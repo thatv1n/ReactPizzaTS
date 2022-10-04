@@ -208,11 +208,11 @@ export const Cart: React.FC = () => {
               Всего пицц: <b>{countItems} шт.</b>
             </span>
             <span>
-              Сумма заказа: <b>{price * countItems} ₽</b>
+              Сумма заказа: <b>{price} ₽</b>
             </span>
           </div>
           <div className="cart__bottom-buttons">
-            <a href="/" className="button button--outline button--add go-back-btn">
+            <Link to="/" className="button button--outline button--add go-back-btn">
               <svg
                 width="8"
                 height="14"
@@ -228,10 +228,8 @@ export const Cart: React.FC = () => {
                 />
               </svg>
 
-              <span>
-                <Link to="/">Вернуться назад</Link>
-              </span>
-            </a>
+              <span>Вернуться назад</span>
+            </Link>
             <div className="button pay-btn">
               <span>Оплатить сейчас</span>
             </div>

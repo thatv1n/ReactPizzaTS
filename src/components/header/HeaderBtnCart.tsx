@@ -26,7 +26,7 @@ export const HeaderBtnCart: React.FC = () => {
 
   return (
     <Link to="/cart" className="button button--cart">
-      <span>{price * countItems} ₽</span>
+      <span>{price} ₽</span>
       <div className="button__delimiter"></div>
       <svg
         width="18"

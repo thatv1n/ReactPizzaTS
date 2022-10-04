@@ -1,18 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
-
-type pizzaItem = {
-  id: number,
-  imageUrl: string,
-  name: string,
-  types: number[],
-  sizes: number[],
-  price: number,
-  category: number,
-  raiting: number,
-  count:  number,
-};
-
 type CartType = {
   id: number;
   imageUrl: string;
@@ -25,10 +12,12 @@ type CartType = {
 
 interface CartState {
   cart: CartType[] | [];
+  price: number;
 }
 
 const initialState: CartState = {
   cart: [],
+  price: 0
 };
 
 const CartSlice = createSlice({
@@ -39,6 +28,8 @@ const CartSlice = createSlice({
       const findItem= state.cart.find((item) => item.id === action.payload.id);
       const pizza : any = {...action.payload, count: 1} 
       findItem ? findItem.count++ : state.cart = [...state.cart, pizza];
+
+      // const getPriceCart = state.cart.reduce((prev:number, curr:CartType) => prev + curr.price, 0);
     },
  
     minusCart:(state,action)=>{
