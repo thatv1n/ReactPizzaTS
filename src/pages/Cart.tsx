@@ -1,20 +1,54 @@
 import React from 'react';
-import { useAppSelector } from '../redux/hook';
+import { Link } from 'react-router-dom';
+import { useAppDispatch, useAppSelector } from '../redux/hook';
+import {
+  addCart,
+  clearItems,
+  minusCart,
+  removeItem,
+} from '../redux/SlicesNThunk/Pizzass/CartSlice';
 import { CartEmpty } from './CartEmpty';
 
-type pizzaItem = {
+type CartType = {
   id: number;
   imageUrl: string;
   name: string;
-  types: number[];
-  sizes: number[];
   price: number;
-  category: number;
-  raiting: number;
+  types: number[] | null;
+  sizes: number[] | null;
+  count: number;
 };
 
 export const Cart: React.FC = () => {
-  const cart = useAppSelector((state) => state.store.CartSlice.cart);
+  const dispatch = useAppDispatch();
+
+  const cart: CartType[] = useAppSelector((state) => state.store.CartSlice.cart);
+  const [price, setPrice] = React.useState<number>(0);
+  const [countItems, setCountItems] = React.useState<number>(0);
+
+  const plusCart = (id: number) => {
+    const pizza = [...cart.filter((item) => item.id === id)];
+    dispatch(addCart(pizza[0]));
+  };
+
+  const minCart = (id: number) => {
+    dispatch(minusCart(id));
+  };
+
+  const removePizza = (id: number) => {
+    dispatch(removeItem(id));
+  };
+
+  const clearAll = () => {
+    dispatch(clearItems());
+  };
+
+  React.useEffect(() => {
+    const getPriceCart: number = cart.reduce((prev, curr) => prev + curr.price, 0);
+    setPrice(getPriceCart);
+    const getCountCart: number = cart.reduce((prev, curr) => prev + curr.count, 0);
+    setCountItems(getCountCart);
+  }, [cart]);
 
   const printCart = cart.map((item) => {
     return (
@@ -27,7 +61,9 @@ export const Cart: React.FC = () => {
           <p>тонкое тесто, 26 см.</p>
         </div>
         <div className="cart__item-count">
-          <div className="button button--outline button--circle cart__item-count-minus">
+          <div
+            className="button button--outline button--circle cart__item-count-minus"
+            onClick={() => item.count !== 1 && minCart(item.id)}>
             <svg
               width="10"
               height="10"
@@ -44,8 +80,10 @@ export const Cart: React.FC = () => {
               />
             </svg>
           </div>
-          <b>2</b>
-          <div className="button button--outline button--circle cart__item-count-plus">
+          <b>{item.count}</b>
+          <div
+            className="button button--outline button--circle cart__item-count-plus"
+            onClick={() => plusCart(item.id)}>
             <svg
               width="10"
               height="10"
@@ -64,9 +102,9 @@ export const Cart: React.FC = () => {
           </div>
         </div>
         <div className="cart__item-price">
-          <b>{item.price} ₽</b>
+          <b>{item.price * item.count} ₽</b>
         </div>
-        <div className="cart__item-remove">
+        <div className="cart__item-remove" onClick={() => removePizza(item.id)}>
           <div className="button button--outline button--circle">
             <svg
               width="10"
@@ -160,18 +198,17 @@ export const Cart: React.FC = () => {
                 strokeLinejoin="round"
               />
             </svg>
-
-            <span>Очистить корзину</span>
+            <span onClick={() => clearAll()}>Очистить корзину</span>
           </div>
         </div>
         <div className="content__items">{cart.length ? printCart : <CartEmpty />}</div>
         <div className="cart__bottom">
           <div className="cart__bottom-details">
             <span>
-              Всего пицц: <b>{cart.length} шт.</b>
+              Всего пицц: <b>{countItems} шт.</b>
             </span>
             <span>
-              Сумма заказа: <b>900 ₽</b>
+              Сумма заказа: <b>{price * countItems} ₽</b>
             </span>
           </div>
           <div className="cart__bottom-buttons">
@@ -191,7 +228,9 @@ export const Cart: React.FC = () => {
                 />
               </svg>
 
-              <span>Вернуться назад</span>
+              <span>
+                <Link to="/">Вернуться назад</Link>
+              </span>
             </a>
             <div className="button pay-btn">
               <span>Оплатить сейчас</span>

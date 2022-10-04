@@ -1,5 +1,5 @@
-import React from 'react';
-import { useAppDispatch } from '../../redux/hook';
+import React, { useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { addCart } from '../../redux/SlicesNThunk/Pizzass/CartSlice';
 
 type PropsType = {
@@ -20,13 +20,16 @@ type ObjType = {
   type: number;
   size: number;
   price: number;
+  count: number;
 };
 
 const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, price }) => {
   const dispatch = useAppDispatch();
+  const count = useAppSelector((state) => state.store.CartSlice.cart);
 
   const viewTypes = ['тонкое', 'традиционное'];
 
+  const [printCount, setPrintCount] = React.useState<number>(0);
   const [activeType, setAcitveType] = React.useState(0);
   const [activeSize, setAcitveSize] = React.useState(0);
 
@@ -38,8 +41,18 @@ const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, pri
       type: activeType,
       size: activeSize,
       price,
+      count: 0,
     };
     dispatch(addCart(obj));
+  };
+
+  React.useEffect(() => {
+    getCount(id);
+  }, [count]);
+
+  const getCount = (id: number) => {
+    const filter: any = count.find((item: { id: number }) => item.id === id);
+    setPrintCount(filter?.count);
   };
 
   return (
@@ -83,7 +96,7 @@ const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, pri
             />
           </svg>
           <span>Добавить</span>
-          <i>2</i>
+          {printCount && <i>{printCount}</i>}
         </div>
       </div>
     </div>

@@ -1,27 +1,32 @@
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAppSelector } from '../../redux/hook';
 
-type pizzaItem = {
+type CartType = {
   id: number;
   imageUrl: string;
   name: string;
-  types: number[];
-  sizes: number[];
   price: number;
-  category: number;
-  raiting: number;
+  types: number[] | null;
+  sizes: number[] | null;
+  count: number;
 };
 
 export const HeaderBtnCart: React.FC = () => {
-  const cart = useAppSelector((state) => state.store.CartSlice.cart);
+  const cart: CartType[] = useAppSelector((state) => state.store.CartSlice.cart);
+  const [price, setPrice] = React.useState<number>(0);
+  const [countItems, setCountItems] = React.useState<number>(0);
 
-  const price = cart.reduce((prev: number, curr: pizzaItem) => {
-    return prev + curr.price;
-  }, 0);
+  React.useEffect(() => {
+    const getPriceCart: number = cart.reduce((prev, curr) => prev + curr.price, 0);
+    setPrice(getPriceCart);
+    const getCountCart: number = cart.reduce((prev, curr) => prev + curr.count, 0);
+    setCountItems(getCountCart);
+  }, [cart]);
 
   return (
     <Link to="/cart" className="button button--cart">
-      <span>{price} ₽</span>
+      <span>{price * countItems} ₽</span>
       <div className="button__delimiter"></div>
       <svg
         width="18"
@@ -51,7 +56,7 @@ export const HeaderBtnCart: React.FC = () => {
           strokeLinejoin="round"
         />
       </svg>
-      <span>{cart.length}</span>
+      <span>{countItems}</span>
     </Link>
   );
 };
