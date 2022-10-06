@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useAppDispatch, useAppSelector } from '../../redux/hook';
 import { addCart } from '../../redux/SlicesNThunk/Pizzass/CartSlice';
 
@@ -17,8 +17,7 @@ type ObjType = {
   id: number;
   imageUrl: string;
   name: string;
-  type: number;
-  size: number;
+  typesPizza: any[];
   price: number;
   count: number;
 };
@@ -38,8 +37,7 @@ const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, pri
       id,
       imageUrl,
       name,
-      type: activeType,
-      size: activeSize,
+      typesPizza: [{ weight: activeType, size: activeSize }],
       price,
       count: 0,
     };
