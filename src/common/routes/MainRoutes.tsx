@@ -8,7 +8,7 @@ const MainRoutes: React.FC = () => {
   return (
     <div>
       <Routes>
-        <Route path="ReactPizzaTS/" element={<Home />} />
+        <Route path="/ReactPizzaTS" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
