@@ -1,3 +1,4 @@
+import React from 'react';
 import MainRoutes from './common/routes/MainRoutes';
 
 import { Header } from './components/header/Header';

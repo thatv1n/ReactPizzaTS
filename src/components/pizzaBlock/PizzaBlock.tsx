@@ -17,9 +17,14 @@ type ObjType = {
   id: number;
   imageUrl: string;
   name: string;
-  typesPizza: any[];
+  typesPizza: typesPizzaObj[];
   price: number;
   count: number;
+};
+
+type typesPizzaObj = {
+  weight: number;
+  size: number;
 };
 
 const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, price }) => {
@@ -28,7 +33,7 @@ const PizzaBlock: React.FC<PropsType> = ({ id, imageUrl, name, types, sizes, pri
 
   const viewTypes = ['тонкое', 'традиционное'];
 
-  const [printCount, setPrintCount] = React.useState<number>(0);
+  const [printCount, setPrintCount] = React.useState(0);
   const [activeType, setAcitveType] = React.useState(0);
   const [activeSize, setAcitveSize] = React.useState(0);
 
