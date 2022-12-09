@@ -47,8 +47,8 @@ export const Sort: React.FC = () => {
                 </svg>
                 <b>Сортировка по:</b>
                 <span onClick={() => setIsOpenSort((isOpenSort) => !isOpenSort)}>
-          {itemSort[active].title}
-        </span>
+                    {itemSort[active].title}
+                </span>
             </div>
             {isOpenSort && (
                 <div className="sort__popup">
