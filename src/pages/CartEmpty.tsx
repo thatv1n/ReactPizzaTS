@@ -17,7 +17,7 @@ export const CartEmpty = () => {
                     </p>
                     <img src={picture} alt="Empty cart"/>
                     <Link to="/ReactPizzaTS" className="button button--black">
-                        <span>Вернуться назад</span>
+                        <span>Вернуться назад </span>
                     </Link>
                 </div>
             </div>
